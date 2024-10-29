@@ -30,6 +30,63 @@ struct ContentView: View {
                             .font(.custom(Constans.hpFont, size: 60))
                             .colorInvert()
                     }
+                    VStack {
+                        Text("Recent Score").colorInvert()
+                            .font(.title2)
+                        Text("text1")
+                        Text("text2")
+                        Text("text3")
+                    }
+                    .font(.title3)
+                    .padding(.horizontal)
+                    .foregroundColor(.white)
+                    .background(.black.opacity(0.7))
+                    .cornerRadius(15)
+                    
+                    HStack {
+                        
+                        Spacer()
+
+                        Button {
+                            // show instructios screen
+                        } label: {
+                            Image(systemName: "info.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundStyle(.white)
+                                .shadow(radius: 5)
+                        }
+                        
+                        Spacer()
+                        
+                        Button() {
+                         // start a new game
+                        } label: {
+                            Text("Play")
+                                .font(.largeTitle)
+                                .foregroundColor(.white)
+                                .padding(.vertical, 7)
+                                .padding(.horizontal, 50)
+                                .background(.brown)
+                                .cornerRadius(7)
+                                .shadow(radius: 5)
+                        }
+                       
+                        
+                        Spacer()
+                        
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                            .shadow(radius: 5)
+                        }
+
+                        Spacer()
+
+                    }
+                    .frame(width: geo.size.width)
                 }
             }
             .frame(width: geo.size.width, height: geo.size.height)
