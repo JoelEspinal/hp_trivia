@@ -40,9 +40,8 @@ struct ContentView: View {
                     .font(.title3)
                     .padding(.horizontal)
                     .foregroundColor(.white)
-                    .background(.black.opacity(0.7))
+                    .background(.gray.opacity(0.7))
                     .cornerRadius(15)
-                    
                     HStack {
                         
                         Spacer()
@@ -71,7 +70,6 @@ struct ContentView: View {
                                 .shadow(radius: 5)
                         }
                        
-                        
                         Spacer()
                         
                         Button {
