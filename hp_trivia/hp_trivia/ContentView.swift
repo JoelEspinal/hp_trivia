@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct ContentView: View {
+    @State private var audioPlayer: AVAudioPlayer!
     @State private var scalePlayButton = false
     @State private var moveBackgroundImage = false
     var body: some View {
@@ -27,7 +29,7 @@ struct ContentView: View {
                     }
             }
             
-            Spacer()
+            
             
             VStack {
                 VStack {
@@ -105,15 +107,25 @@ struct ContentView: View {
                     Spacer()
                     
                 }
-//                .frame(width: geo.size.width)
+              .frame(width: geo.size.width)
             }
-//            .frame(width: geo.size.width, height: geo.size.height)
+            .frame(width: geo.size.width, height: geo.size.height)
         } .ignoresSafeArea()
+            .onAppear() {
+                playAudio()
+            }
+    }
+    
+    private func playAudio() {
+        let sound = Bundle.main.path(forResource: "magic-in-the-air", ofType: "mp3")
+        audioPlayer = try! AVAudioPlayer(contentsOf: URL(filePath: sound!))
+        audioPlayer.numberOfLoops = -1
+        audioPlayer.play()
     }
 }
         
-        //#Preview {
-        //    ContentView()
-        //}
-        
+#Preview {
+//    ContentView()
+}
+
     
