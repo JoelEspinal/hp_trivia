@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var audioPlayer: AVAudioPlayer!
     @State private var scalePlayButton = false
     @State private var moveBackgroundImage = false
+    @State private var animateViewsIn = false
+    
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -33,18 +35,24 @@ struct ContentView: View {
             
             VStack {
                 VStack {
-                    Image(systemName: "bolt.fill")
-                        .font(.largeTitle)
-                        .imageScale(.large)
-                        .colorInvert()
-                    Text("HP")
-                        .font(.custom(Constans.hpFont, size: 70))
-                        .colorInvert()
-                        .padding(.bottom, -50)
-                    Text("Trivia")
-                        .font(.custom(Constans.hpFont, size: 60))
-                        .colorInvert()
-                }
+                    if animateViewsIn {
+                        VStack {
+                            Image(systemName: "bolt.fill")
+                                .font(.largeTitle)
+                                .imageScale(.large)
+                                .colorInvert()
+                            Text("HP")
+                                .font(.custom(Constans.hpFont, size: 70))
+                                .colorInvert()
+                                .padding(.bottom, -50)
+                            Text("Trivia")
+                                .font(.custom(Constans.hpFont, size: 60))
+                                .colorInvert()
+                        }
+                        .padding(.top, 70)
+                        .transition(.move(edge: .top))
+                    }
+                }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                 
                 VStack {
                     Text("Recent Score").colorInvert()
@@ -112,7 +120,8 @@ struct ContentView: View {
             .frame(width: geo.size.width, height: geo.size.height)
         } .ignoresSafeArea()
             .onAppear() {
-                playAudio()
+            animateViewsIn = true
+//                playAudio()
             }
     }
     
@@ -125,7 +134,7 @@ struct ContentView: View {
 }
         
 #Preview {
-//    ContentView()
+    ContentView()
 }
 
     
