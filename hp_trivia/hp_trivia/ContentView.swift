@@ -70,49 +70,72 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    Button {
-                        // show instructios screen
-                    } label: {
-                        Image(systemName: "info.circle.fill")
-                            .font(.largeTitle)
-                            .foregroundStyle(.white)
-                            .shadow(radius: 5)
-                    }
-                    
-                    Spacer()
-                    
-                    Button() {
-                        // start a new game
-                    } label: {
-                        Text("Play")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                            .padding(.vertical, 7)
-                            .padding(.horizontal, 50)
-                            .background(.brown)
-                            .cornerRadius(7)
-                            .shadow(radius: 5)
-                    }
-                    .scaleEffect(scalePlayButton ? 1.2 : 1)
-                    .onAppear{
-                        withAnimation(.easeIn(duration: 0.3).repeatForever()){
-                            scalePlayButton.toggle()
+                    VStack {
+                        Button {
+                            
                             
                         }
+                        label: {
+                            Image(systemName: "info.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundStyle(.white)
+                                .shadow(radius: 5)
+                        }
+                        .transition(.offset(x: -geo.size.width / 4))
+                        
                     }
+                    //.withAnimation(Animation.easeOut(duration: 0.7).delay(2.7))
+                    
                     
                     Spacer()
                     
-                    Button {
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                            .shadow(radius: 5)
-                    }
-                    
+                        VStack {
+                            if animateViewsIn {
+
+                            Button() {
+                                // start a new game
+                            } label: {
+                                Text("Play")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)    
+                                    .padding(.vertical, 7)
+                                    .padding(.horizontal, 50)
+                                    .background(.brown)
+                                    .cornerRadius(7)
+                                    .shadow(radius: 5)
+                            }
+                            .scaleEffect(scalePlayButton ? 1.2 : 1)
+                            //                            .onAppear{
+                            //                                withAnimation(.easeIn(duration: 0.3).repeatForever()){
+                            //                                    scalePlayButton.toggle()
+                            //                                }
+                            //                            }.transition(.offset(y: geo.size.height / 3))
+                            //
+                            //                        }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
+                            
+                            //                            }
+                            .animation(.easeOut(duration: 0.7).delay(2))
+                            }
+                      
+                       }
                     
                     Spacer()
+                    
+                    
+                    VStack {
+                        if animateViewsIn {
+                            Button {
+                            } label: {
+                                Image(systemName: "gearshape.fill")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                                    .shadow(radius: 5)
+                            }
+                            .transition(.offset(x: geo.size.width / 4))
+                        }
+                        
+                        Spacer()
+                    }.animation(.easeOut(duration: 0.7).delay(2.7))
                     
                 }
               .frame(width: geo.size.width)
