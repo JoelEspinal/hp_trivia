@@ -16,7 +16,23 @@ struct Instructions: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 150)
-                    .padding(.top: )
+                    .padding(.top)
+                ScrollView {
+                    Text("How to play")
+                        .font(.largeTitle)
+                        .padding()
+                    VStack(alignment: .leading){
+                        Text("Welcom to HP trivia 😅")
+                        .padding([.horizontal, .bottom])
+                        Text("More text 🥲")
+                            .padding([.horizontal, .bottom])
+                        Text("More play conditions and hint 🤨")
+                            .padding([.horizontal, .bottom])
+                        Text("Last message")
+                            .padding(.horizontal)
+                    }
+                    Text("Good luck 🥳")
+                }
             }
         }
     }
