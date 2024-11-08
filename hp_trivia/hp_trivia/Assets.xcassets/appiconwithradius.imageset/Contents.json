@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "appiconwithradius.png",
+      "filename" : "appiconwithradius 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "appiconwithradius.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "appiconwithradius 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
