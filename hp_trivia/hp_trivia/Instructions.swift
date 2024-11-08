@@ -8,31 +8,46 @@
 import SwiftUI
 
 struct Instructions: View {
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         ZStack {
-            InfoBacogroundImage()
+            VStack {
+                InfoBackgroundImage()
+            }
+            
             VStack {
                 Image("appiconwithradius")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 150)
-                    .padding(.top)
-                ScrollView {
-                    Text("How to play")
-                        .font(.largeTitle)
-                        .padding()
-                    VStack(alignment: .leading){
-                        Text("Welcom to HP trivia 😅")
-                        .padding([.horizontal, .bottom])
-                        Text("More text 🥲")
-                            .padding([.horizontal, .bottom])
-                        Text("More play conditions and hint 🤨")
-                            .padding([.horizontal, .bottom])
-                        Text("Last message")
-                            .padding(.horizontal)
+                .renderingMode(.none)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 150)
+                .padding(.top)
+                VStack {
+                    ScrollView {
+                        Text("How to play")
+                            .font(.largeTitle)
+                            .padding()
+                        VStack(alignment: .leading){
+                            Text("Welcom to HP trivia 😅")
+                                .padding([.horizontal, .bottom])
+                            Text("More text 🥲")
+                                .padding([.horizontal, .bottom])
+                            Text("More play conditions and hint 🤨")
+                                .padding([.horizontal, .bottom])
+                            Text("Last message")
+                                .padding(.horizontal)
+                        }
+                        .font(.title3)
+                        Text("Good luck! 🥳")
+                            .font(.title)
                     }
-                    Text("Good luck 🥳")
+                    
                 }
+                Button("Done") {
+                    dismiss()
+                }
+                .doneButton()
             }
         }
     }

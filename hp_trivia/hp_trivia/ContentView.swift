@@ -18,6 +18,7 @@ struct ContentView: View {
         GeometryReader { geo in
             ZStack {
                 Image("hogwarts")
+                    .renderingMode(.none)
                     .resizable()
                     .frame(width: geo.size.width * 3, height: geo.size.height)
                     .padding(.top, 3)
