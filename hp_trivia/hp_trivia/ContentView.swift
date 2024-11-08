@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var scalePlayButton = false
     @State private var moveBackgroundImage = false
     @State private var animateViewsIn = false
+    @State private var showInstruction = false
     
     var body: some View {
         GeometryReader { geo in
@@ -32,16 +33,18 @@ struct ContentView: View {
                     }
             }
             
-            
-            
             VStack {
                 VStack {
                     if animateViewsIn {
-                        VStack {
+                        Button {
+                            showInstruction.toggle()
+                        } label: {
                             Image(systemName: "bolt.fill")
                                 .font(.largeTitle)
                                 .imageScale(.large)
                                 .colorInvert()
+                        }
+                        VStack {
                             Text("HP")
                                 .font(.custom(Constans.hpFont, size: 70))
                                 .colorInvert()
@@ -83,6 +86,9 @@ struct ContentView: View {
                                 .shadow(radius: 5)
                         }
                         .transition(.offset(x: -geo.size.width / 4))
+                        .sheet(isPresented: $showInstruction) {
+                            Instructions()
+                        }
                         
                     }
                     //.withAnimation(Animation.easeOut(duration: 0.7).delay(2.7))
@@ -94,7 +100,7 @@ struct ContentView: View {
                             if animateViewsIn {
 
                             Button() {
-                                // start a new game
+                                showInstruction.toggle()
                             } label: {
                                 Text("Play")
                                     .font(.largeTitle)

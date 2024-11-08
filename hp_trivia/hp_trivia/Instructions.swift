@@ -25,6 +25,7 @@ struct Instructions: View {
                 .padding(.top)
                 VStack {
                     ScrollView {
+            
                         Text("How to play")
                             .font(.largeTitle)
                             .padding()
@@ -47,7 +48,11 @@ struct Instructions: View {
                 Button("Done") {
                     dismiss()
                 }
-                .doneButton()
+                .font(.largeTitle)
+                .padding()
+                .buttonStyle(.borderedProminent)
+                .tint(.brown)
+                .foregroundColor(.white)
             }
         }
     }
