@@ -95,7 +95,7 @@ struct ContentView: View {
                     
                     
                     Spacer()
-                    
+//                    
                         VStack {
                             if animateViewsIn {
 
@@ -104,7 +104,7 @@ struct ContentView: View {
                             } label: {
                                 Text("Play")
                                     .font(.largeTitle)
-                                    .foregroundColor(.white)    
+                                    .foregroundColor(.white)
                                     .padding(.vertical, 7)
                                     .padding(.horizontal, 50)
                                     .background(.brown)
@@ -121,7 +121,7 @@ struct ContentView: View {
                             //                        }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                             
                             //                            }
-                            .animation(.easeOut(duration: 0.7).delay(2))
+//                            .animation(.easeOut(duration: 0.7).delay(2))
                             }
                       
                        }
