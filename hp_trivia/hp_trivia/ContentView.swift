@@ -70,6 +70,7 @@ struct ContentView: View {
                 .foregroundColor(.white)
                 .background(.gray.opacity(0.7))
                 .cornerRadius(15)
+                .transition(.opacity)
                 HStack {
 //                    VStack {
 //                        if showInstruction {
