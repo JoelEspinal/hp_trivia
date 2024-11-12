@@ -25,7 +25,7 @@ struct ContentView: View {
                     .padding(.top, 3)
                     .offset(x: moveBackgroundImage ?
                             geo.size.width * 1.1 :
-                            -geo.size.width * 1.1)
+                                -geo.size.width * 1.1)
                     .onAppear {
                         withAnimation(.linear(duration: 60).repeatForever()) {
                             moveBackgroundImage.toggle()
@@ -71,34 +71,67 @@ struct ContentView: View {
                 .background(.gray.opacity(0.7))
                 .cornerRadius(15)
                 HStack {
+//                    VStack {
+//                        if showInstruction {
+//                            Button {
+//                                showInstruction.toggle()
+//                            }
+//                            label: {
+//                                Image(systemName: "info.circle.fill")
+//                                    .font(.largeTitle)
+//                                    .foregroundStyle(.white)
+//                                    .shadow(radius: 5)
+//                            }
+//                            .scaleEffect(scalePlayButton ? 1.2 : 1)
+//                            .sheet(isPresented: $showInstruction) {
+//                                Instructions()
+//                            }
+//                        }
+//                        
+//                    }
+//                    .scaleEffect(scalePlayButton ? 1.2 : 1)
+//                    .onAppear{
+//                        withAnimation(.easeIn(duration: 0.3).repeatForever()){
+//                            scalePlayButton.toggle()
+//                        }
+//                    }
+//                    .transition(.offset(y: geo.size.height / 3))
+//                    
+//                    
+                    
+                    
+                    
+                    //
+                    
+                    //.animation(.easeOut(duration: 0.7).delay(2.7))
+                    //.withAnimation(Animation.easeOut(duration: 0.7).delay(2.7))
+                    
+//                    
+                    Spacer()
+                    
+                    VStack {
+                        if animateViewsIn {
+                            Button {
+                                animateViewsIn.toggle()
+                            } label: {
+                                Image(systemName: "info.circle.fill")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                                    .shadow(radius: 5)
+                            }
+                          .transition(.offset(x: -geo.size.width / 4))
+                        }
+                    }
+                    .animation(.easeOut(duration: 0.7).delay(0.7), value: animateViewsIn)
+                    .sheet(isPresented: $showInstruction) {
+                        Instructions()
+                    }
                     
                     Spacer()
                     
                     VStack {
-                        Button {
+                        if animateViewsIn {
                             
-                            
-                        }
-                        label: {
-                            Image(systemName: "info.circle.fill")
-                                .font(.largeTitle)
-                                .foregroundStyle(.white)
-                                .shadow(radius: 5)
-                        }
-                        .transition(.offset(x: -geo.size.width / 4))
-                        .sheet(isPresented: $showInstruction) {
-                            Instructions()
-                        }
-                        
-                    }
-                    //.withAnimation(Animation.easeOut(duration: 0.7).delay(2.7))
-                    
-                    
-                    Spacer()
-//                    
-                        VStack {
-                            if animateViewsIn {
-
                             Button() {
                                 showInstruction.toggle()
                             } label: {
@@ -112,19 +145,20 @@ struct ContentView: View {
                                     .shadow(radius: 5)
                             }
                             .scaleEffect(scalePlayButton ? 1.2 : 1)
-                            //                            .onAppear{
-                            //                                withAnimation(.easeIn(duration: 0.3).repeatForever()){
-                            //                                    scalePlayButton.toggle()
-                            //                                }
-                            //                            }.transition(.offset(y: geo.size.height / 3))
+                            .onAppear{
+                                withAnimation(.easeIn(duration: 0.3).repeatForever()){
+                                    scalePlayButton.toggle()
+                                }
+                            }
+                            .transition(.offset(y: geo.size.height / 3))
                             //
                             //                        }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                             
                             //                            }
-//                            .animation(.easeOut(duration: 0.7).delay(2))
-                            }
-                      
-                       }
+                            //                            .animation(.easeOut(duration: 0.7).delay(2))
+                        }
+                        
+                    }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                     
                     Spacer()
                     
@@ -132,26 +166,27 @@ struct ContentView: View {
                     VStack {
                         if animateViewsIn {
                             Button {
+                                
                             } label: {
                                 Image(systemName: "gearshape.fill")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 5)
+                                .font(.largeTitle)
+                                .foregroundColor(.white)
+                                .shadow(radius: 5)
                             }
                             .transition(.offset(x: geo.size.width / 4))
                         }
-                        
-                        Spacer()
-                    }.animation(.easeOut(duration: 0.7).delay(2.7))
+                    }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
+                    
+                    Spacer()
                     
                 }
-              .frame(width: geo.size.width)
+//                .frame(width: geo.size.width)
             }
             .frame(width: geo.size.width, height: geo.size.height)
         } .ignoresSafeArea()
-            .onAppear() {
+        .onAppear() {
             animateViewsIn = true
-//                playAudio()
+            //                playAudio()
             }
     }
     
@@ -162,9 +197,9 @@ struct ContentView: View {
         audioPlayer.play()
     }
 }
-        
+
 #Preview {
     ContentView()
 }
 
-    
+
