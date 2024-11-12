@@ -5,7 +5,10 @@
 //  Created by Joel Espinal on 4/11/24.
 //
 
+import Foundation
 import SwiftUI
+
+
 
 struct Instructions: View {
     @Environment(\.dismiss) private var dismiss

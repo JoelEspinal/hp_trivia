@@ -58,6 +58,7 @@ struct ContentView: View {
                     }
                 }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                 
+                
                 VStack {
                     Text("Recent Score").colorInvert()
                         .font(.title2)
@@ -72,67 +73,31 @@ struct ContentView: View {
                 .cornerRadius(15)
                 .transition(.opacity)
                 HStack {
-//                    VStack {
-//                        if showInstruction {
-//                            Button {
-//                                showInstruction.toggle()
-//                            }
-//                            label: {
-//                                Image(systemName: "info.circle.fill")
-//                                    .font(.largeTitle)
-//                                    .foregroundStyle(.white)
-//                                    .shadow(radius: 5)
-//                            }
-//                            .scaleEffect(scalePlayButton ? 1.2 : 1)
-//                            .sheet(isPresented: $showInstruction) {
-//                                Instructions()
-//                            }
-//                        }
-//                        
-//                    }
-//                    .scaleEffect(scalePlayButton ? 1.2 : 1)
-//                    .onAppear{
-//                        withAnimation(.easeIn(duration: 0.3).repeatForever()){
-//                            scalePlayButton.toggle()
-//                        }
-//                    }
-//                    .transition(.offset(y: geo.size.height / 3))
-//                    
-//                    
-                    
-                    
-                    
-                    //
-                    
-                    //.animation(.easeOut(duration: 0.7).delay(2.7))
-                    //.withAnimation(Animation.easeOut(duration: 0.7).delay(2.7))
-                    
-//                    
                     Spacer()
                     
                     VStack {
                         if animateViewsIn {
                             Button {
-                                animateViewsIn.toggle()
+                                showInstruction.toggle()
                             } label: {
                                 Image(systemName: "info.circle.fill")
                                     .font(.largeTitle)
                                     .foregroundColor(.white)
                                     .shadow(radius: 5)
                             }
-                          .transition(.offset(x: -geo.size.width / 4))
+                            .transition(.offset(x: -geo.size.width / 4))
+                            .animation(.easeOut(duration: 0.7).delay(0.7), value: animateViewsIn)
+                            .sheet(isPresented: $showInstruction) {
+                              Instructions()
+                          }
                         }
+                            
                     }
-                    .animation(.easeOut(duration: 0.7).delay(0.7), value: animateViewsIn)
-                    .sheet(isPresented: $showInstruction) {
-                        Instructions()
-                    }
-                    
+
                     Spacer()
                     
                     VStack {
                         if animateViewsIn {
-                            
                             Button() {
                                 showInstruction.toggle()
                             } label: {
@@ -145,13 +110,18 @@ struct ContentView: View {
                                     .cornerRadius(7)
                                     .shadow(radius: 5)
                             }
+                            .sheet(isPresented: $showInstruction) {
+//                                Settings()
+                                Instructions()
+                               
+                              }
                             .scaleEffect(scalePlayButton ? 1.2 : 1)
                             .onAppear{
                                 withAnimation(.easeIn(duration: 0.3).repeatForever()){
                                     scalePlayButton.toggle()
                                 }
                             }
-                            .transition(.offset(y: geo.size.height / 3))
+                           // .transition(.offset(y: geo.size.height / 3))
                             //
                             //                        }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                             
@@ -159,7 +129,7 @@ struct ContentView: View {
                             //                            .animation(.easeOut(duration: 0.7).delay(2))
                         }
                         
-                    }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
+                    }//.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                     
                     Spacer()
                     
@@ -167,16 +137,25 @@ struct ContentView: View {
                     VStack {
                         if animateViewsIn {
                             Button {
-                                
-                            } label: {
+                                showInstruction.toggle()
+                            }
+                            label: {
                                 Image(systemName: "gearshape.fill")
                                 .font(.largeTitle)
                                 .foregroundColor(.white)
                                 .shadow(radius: 5)
                             }
-                            .transition(.offset(x: geo.size.width / 4))
+//                            .transition(.offset(x: geo.size.width / 4))
+                            
+                            .transition(.offset(x: -geo.size.width / 4))
+                             .animation(.easeOut(duration: 0.7).delay(0.7), value: animateViewsIn)
+                            .sheet(isPresented: $showInstruction) {
+                                Settings()
+                               
+                              }
                         }
-                    }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
+                    }
+                    //.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                     
                     Spacer()
                     
