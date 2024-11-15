@@ -18,6 +18,11 @@ struct GamePlay: View {
                     .renderingMode(.none)
                     .resizable()
                     .frame(width: geo.size.width * 3, height: geo.size.height * 1.05)
+                   .overlay(Rectangle().foregroundColor(Color.black.opacity(0.8)))
+                VStack {
+                    
+                }
+                .frame(width: geo.size.width, height: geo.size.height)
             }
             .frame(width: geo.size.width, height: geo.size.height)
         }.ignoresSafeArea()
