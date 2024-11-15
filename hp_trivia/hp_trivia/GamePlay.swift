@@ -30,8 +30,11 @@ var body: some View {
                 Spacer()
                 
                 Text("Score: 33")
-                
             }
+            .padding()
+                
+            Text("Who is Harry Potter?")
+                    .font(.custom(Constans.hpFont, size: 50))
         }
             .frame(width: geo.size.width, height: geo.size.height)
             .foregroundColor(.white)
