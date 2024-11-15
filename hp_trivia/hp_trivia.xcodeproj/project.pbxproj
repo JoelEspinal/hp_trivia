@@ -29,9 +29,22 @@
 		9B7A41852CCEF1F800AA5418 /* hp_triviaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hp_triviaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9B3985592CE2B53B0028A522 /* Exceptions for "hp_trivia" folder in "hp_trivia" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Untitled.swift,
+			);
+			target = 9B7A41652CCEF1F700AA5418 /* hp_trivia */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9B7A41682CCEF1F700AA5418 /* hp_trivia */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9B3985592CE2B53B0028A522 /* Exceptions for "hp_trivia" folder in "hp_trivia" target */,
+			);
 			path = hp_trivia;
 			sourceTree = "<group>";
 		};
