@@ -35,6 +35,14 @@ var body: some View {
                 
             Text("Who is Harry Potter?")
                     .font(.custom(Constans.hpFont, size: 50))
+                HStack {
+                    Image(systemName: "questionmark.app.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100)
+                        .foregroundColor(.cyan)
+                        .rotationEffect(.degrees(-15))
+                }
         }
             .frame(width: geo.size.width, height: geo.size.height)
             .foregroundColor(.white)
