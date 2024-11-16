@@ -42,6 +42,18 @@ var body: some View {
                         .frame(width: 100)
                         .foregroundColor(.cyan)
                         .rotationEffect(.degrees(-15))
+                        .padding()
+                    
+                    Image(systemName: "book.closed")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50)
+                        .foregroundColor(.black)
+                        .frame(width: 100, height: 100)
+                        .background(.cyan)
+                        .cornerRadius(20)
+                        .rotationEffect(.degrees(15))
+                        .padding()
                 }
         }
             .frame(width: geo.size.width, height: geo.size.height)
