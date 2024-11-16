@@ -42,7 +42,9 @@ var body: some View {
                         .frame(width: 100)
                         .foregroundColor(.cyan)
                         .rotationEffect(.degrees(-15))
-                        .padding()
+                        .padding(.leading, 20)
+                    
+                    Spacer()
                     
                     Image(systemName: "book.closed")
                         .resizable()
@@ -54,6 +56,7 @@ var body: some View {
                         .cornerRadius(20)
                         .rotationEffect(.degrees(15))
                         .padding()
+                        .padding(.trailing, 20)
                 }
         }
             .frame(width: geo.size.width, height: geo.size.height)
