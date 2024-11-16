@@ -32,9 +32,15 @@ var body: some View {
                 Text("Score: 33")
             }
             .padding()
+            .padding(.vertical, 30)
                 
             Text("Who is Harry Potter?")
                     .font(.custom(Constans.hpFont, size: 50))
+                    .multilineTextAlignment(.center)
+                    .padding()
+                
+                Spacer()
+                
                 HStack {
                     Image(systemName: "questionmark.app.fill")
                         .resizable()
@@ -58,6 +64,7 @@ var body: some View {
                         .padding()
                         .padding(.trailing, 20)
                 }
+                .padding(.bottom)
                 
                 LazyVGrid(columns: [GridItem(alignment: .leading), GridItem()]){
                     ForEach(1..<5) { i in
@@ -69,9 +76,10 @@ var body: some View {
                                    height: 80)
                             .background(.green.opacity(0.5))
                             .cornerRadius(25)
-                        
                     }
                 }
+                
+                Spacer()
                 
         }
             .frame(width: geo.size.width, height: geo.size.height)
