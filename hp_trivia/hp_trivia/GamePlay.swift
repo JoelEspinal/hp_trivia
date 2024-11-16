@@ -42,10 +42,10 @@ var body: some View {
                         .frame(width: 100)
                         .foregroundColor(.cyan)
                         .rotationEffect(.degrees(-15))
-                        .padding(.leading, 20)
+                        .padding()
+                        .padding(.trailing, 20)
                     
-                    Spacer()
-                    
+                 
                     Image(systemName: "book.closed")
                         .resizable()
                         .scaledToFit()
@@ -58,6 +58,21 @@ var body: some View {
                         .padding()
                         .padding(.trailing, 20)
                 }
+                
+                LazyVGrid(columns: [GridItem(alignment: .leading), GridItem()]){
+                    ForEach(1..<5) { i in
+                        
+                        Text("Answer \(i)")
+                            .multilineTextAlignment(.center)
+                            .padding(10)
+                            .frame(width: geo.size.width/2.15,
+                                   height: 80)
+                            .background(.green.opacity(0.5))
+                            .cornerRadius(25)
+                        
+                    }
+                }
+                
         }
             .frame(width: geo.size.width, height: geo.size.height)
             .foregroundColor(.white)
