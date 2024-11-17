@@ -11,6 +11,8 @@ import SwiftUI
 
 
 struct GamePlay: View {
+    @State private var animateViewIn = false
+    
 var body: some View {
     GeometryReader { geo in
         ZStack {
@@ -34,35 +36,53 @@ var body: some View {
             .padding()
             .padding(.vertical, 30)
                 
-            Text("Who is Harry Potter?")
-                    .font(.custom(Constans.hpFont, size: 50))
-                    .multilineTextAlignment(.center)
-                    .padding()
+                VStack {
+                    if animateViewIn {
+                        Text("Who is Harry Potter?")
+                            .font(.custom(Constans.hpFont, size: 50))
+                            .multilineTextAlignment(.center)
+                            .padding()
+                            .transition(.scale)
+                    }
+                }
+                .animation(.easeInOut(duration: 2), value: animateViewIn)
                 
                 Spacer()
                 
                 HStack {
-                    Image(systemName: "questionmark.app.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 100)
-                        .foregroundColor(.cyan)
-                        .rotationEffect(.degrees(-15))
-                        .padding()
-                        .padding(.trailing, 20)
+                    VStack {
+                        if animateViewIn {
+                            Image(systemName: "questionmark.app.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100)
+                                .foregroundColor(.cyan)
+                                .rotationEffect(.degrees(-15))
+                                .padding()
+                                .padding(.trailing, 20)
+                                .transition(.offset(x: -geo.size.width/2))
+                        }
+                    }
+                    .animation(.easeOut(duration: 1.5).delay(2), value: animateViewIn)
                     
-                 
-                    Image(systemName: "book.closed")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50)
-                        .foregroundColor(.black)
-                        .frame(width: 100, height: 100)
-                        .background(.cyan)
-                        .cornerRadius(20)
-                        .rotationEffect(.degrees(15))
-                        .padding()
-                        .padding(.trailing, 20)
+                    VStack{
+                        if animateViewIn {
+                            Image(systemName: "book.closed")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50)
+                                .foregroundColor(.black)
+                                .frame(width: 100, height: 100)
+                                .background(.cyan)
+                                .cornerRadius(20)
+                                .rotationEffect(.degrees(15))
+                                .padding()
+                                .padding(.trailing, 20)
+                                .transition(.offset(x: geo.size.width/2))
+                        }
+                    }
+                    .animation(.easeOut(duration: 1.5).delay(2), value: animateViewIn)
+                    
                 }
                 .padding(.bottom)
                 
@@ -86,12 +106,18 @@ var body: some View {
             .foregroundColor(.white)
         }
         .frame(width: geo.size.width, height: geo.size.height)
-    }.ignoresSafeArea()
-}
+    }
+        .ignoresSafeArea()
+        .onAppear() {
+            animateViewIn = true
+        }
+    }
 }
 
 struct GamePlay_Previews: PreviewProvider {
 static var previews: some View {
-    GamePlay()
+    VStack {
+        GamePlay()
+    }
 }
 }
