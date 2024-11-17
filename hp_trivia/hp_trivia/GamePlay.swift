@@ -22,6 +22,7 @@ var body: some View {
                 .frame(width: geo.size.width * 3, height: geo.size.height * 1.05)
                 .overlay(Rectangle().foregroundColor(Color.black.opacity(0.8)))
             VStack {
+                // MARK: Controls
             HStack {
                 Button("End Game") {
                     // TODO: End Game
@@ -36,6 +37,7 @@ var body: some View {
             .padding()
             .padding(.vertical, 30)
                 
+                //MARK: Question
                 VStack {
                     if animateViewIn {
                         Text("Who is Harry Potter?")
@@ -49,6 +51,7 @@ var body: some View {
                 
                 Spacer()
                 
+                // MARK: Question Hints
                 HStack {
                     VStack {
                         if animateViewIn {
@@ -86,6 +89,7 @@ var body: some View {
                 }
                 .padding(.bottom)
                 
+                // MARK: Answers
                 LazyVGrid(columns: [GridItem(alignment: .leading), GridItem()]){
                     ForEach(1..<5) { i in
                         VStack {
@@ -105,8 +109,26 @@ var body: some View {
                     }
                 }
                 
-                Spacer()
+              
+                // MARK: Celebration
+                VStack {
+                    Text("5")
+                    
+                    Text("Brilliant!")
+                        .font(.custom(Constans.hpFont, size: 100))
+                    Text("Answer 1")
+                        .minimumScaleFactor(0.5)
+                        .multilineTextAlignment(.center)
+                        .padding(10)
+                        .frame(width: geo.size.width / 2.15, height: 80)
+                        .background(.green.opacity(0.5))
+                        .cornerRadius(25)
+                        .scaleEffect(2)
+                }
+                .foregroundColor(.white)
+                .font(.largeTitle)
                 
+                Spacer()
         }
             .frame(width: geo.size.width, height: geo.size.height)
             .foregroundColor(.white)
@@ -115,7 +137,7 @@ var body: some View {
     }
         .ignoresSafeArea()
         .onAppear() {
-            animateViewIn = true
+//            animateViewIn = true
         }
     }
 }
