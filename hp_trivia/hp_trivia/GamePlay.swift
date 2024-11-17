@@ -133,8 +133,10 @@ var body: some View {
                         .cornerRadius(25)
                         .scaleEffect(2)
                     
-                    Spacer()
-                    Spacer()
+                    Group {
+                        Spacer()
+                        Spacer()
+                    }
                     
                     Button("New Level>"){
                         
@@ -143,8 +145,11 @@ var body: some View {
                     .tint(.blue.opacity(0.5))
                     .font(.largeTitle)
                     
-                    Spacer()
-                    Spacer()
+                    Group {
+                        Spacer()
+                        Spacer()
+                    }
+                    
                 }
                 .foregroundColor(.white)
                 .font(.largeTitle)
@@ -164,9 +169,9 @@ var body: some View {
 }
 
 struct GamePlay_Previews: PreviewProvider {
-static var previews: some View {
-    VStack {
-        GamePlay()
+    static var previews: some View {
+        VStack {
+            GamePlay()
+        }
     }
-}
 }
