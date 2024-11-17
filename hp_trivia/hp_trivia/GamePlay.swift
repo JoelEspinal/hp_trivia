@@ -116,6 +116,7 @@ var body: some View {
                     
                     Text("5")
                         .font(.largeTitle)
+                        .padding(.top, 50)
                     
                     Spacer()
                     
