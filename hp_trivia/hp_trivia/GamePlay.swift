@@ -112,10 +112,18 @@ var body: some View {
               
                 // MARK: Celebration
                 VStack {
+                    Spacer()
+                    
                     Text("5")
+                        .font(.largeTitle)
+                    
+                    Spacer()
                     
                     Text("Brilliant!")
                         .font(.custom(Constans.hpFont, size: 100))
+                    
+                    Spacer()
+                    
                     Text("Answer 1")
                         .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.center)
@@ -124,6 +132,19 @@ var body: some View {
                         .background(.green.opacity(0.5))
                         .cornerRadius(25)
                         .scaleEffect(2)
+                    
+                    Spacer()
+                    Spacer()
+                    
+                    Button("New Level>"){
+                        
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.blue.opacity(0.5))
+                    .font(.largeTitle)
+                    
+                    Spacer()
+                    Spacer()
                 }
                 .foregroundColor(.white)
                 .font(.largeTitle)
