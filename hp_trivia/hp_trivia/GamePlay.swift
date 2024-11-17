@@ -88,14 +88,20 @@ var body: some View {
                 
                 LazyVGrid(columns: [GridItem(alignment: .leading), GridItem()]){
                     ForEach(1..<5) { i in
-                        
-                        Text("Answer \(i)")
-                            .multilineTextAlignment(.center)
-                            .padding(10)
-                            .frame(width: geo.size.width/2.15,
-                                   height: 80)
-                            .background(.green.opacity(0.5))
-                            .cornerRadius(25)
+                        VStack {
+                            if animateViewIn {
+                                
+                                Text("Answer \(i)")
+                                    .multilineTextAlignment(.center)
+                                    .padding(10)
+                                    .frame(width: geo.size.width/2.15,
+                                           height: 80)
+                                    .background(.green.opacity(0.5))
+                                    .cornerRadius(25)
+                                    .transition(.scale)
+                            }
+                        }
+                        .animation(.easeOut(duration: 1).delay(1.5), value: animateViewIn)
                     }
                 }
                 
