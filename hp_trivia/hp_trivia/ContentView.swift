@@ -15,6 +15,7 @@
         @State private var animateViewsIn = false
         @State private var showInstruction = false
         @State private var showSettings = false
+        @State private var playGame = false
         
         var body: some View {
             GeometryReader { geo in
@@ -100,7 +101,7 @@
                         VStack {
                             if animateViewsIn {
                                 Button() {
-                                    showInstruction.toggle()
+                                    playGame.toggle()
                                 } label: {
                                     Text("Play")
                                         .font(.largeTitle)
@@ -147,9 +148,9 @@
                                     .shadow(radius: 5)
                                 }
                                 .transition(.offset(x: geo.size.width / 4))
-                                .sheet(isPresented: $showSettings) {
-                                    Settings()
-                                  }
+                                .fullScreenCover(isPresented: $playGame) {
+                                    GamePlay()
+                                }
                             }
                         }
                         //.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
