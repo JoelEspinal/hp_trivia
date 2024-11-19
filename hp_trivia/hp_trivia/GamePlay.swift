@@ -13,6 +13,7 @@ import SwiftUI
 struct GamePlay: View {
     @State private var animateViewIn = false
     @State private var tappedCorrectAnswer = false
+    @State private var hintWiggle = false
     
 var body: some View {
     GeometryReader { geo in
@@ -61,10 +62,15 @@ var body: some View {
                                 .scaledToFit()
                                 .frame(width: 100)
                                 .foregroundColor(.cyan)
-                                .rotationEffect(.degrees(-15))
+                                .rotationEffect(.degrees(hintWiggle ? -13 : -17))
                                 .padding()
                                 .padding(.trailing, 20)
                                 .transition(.offset(x: -geo.size.width/2))
+                                .onAppear {
+                                    hintWiggle = true
+                                    
+                                }
+                                .animation(.easeInOut(duration: 0.1).delay(2), value: hintWiggle)
                         }
                     }
                     .animation(.easeOut(duration: 1.5).delay(2), value: animateViewIn)
@@ -139,26 +145,35 @@ var body: some View {
                         
                     Spacer()
                     
-                    Text("Answer 1")
-                        .minimumScaleFactor(0.5)
-                        .multilineTextAlignment(.center)
-                        .padding(10)
-                        .frame(width: geo.size.width / 2.15, height: 80)
-                        .background(.green.opacity(0.5))
-                        .cornerRadius(25)
-                        .scaleEffect(2)
+                    if tappedCorrectAnswer {
+                        Text("Answer 1")
+                            .minimumScaleFactor(0.5)
+                            .multilineTextAlignment(.center)
+                            .padding(10)
+                            .frame(width: geo.size.width / 2.15, height: 80)
+                            .background(.green.opacity(0.5))
+                            .cornerRadius(25)
+                            .scaleEffect(2)
+                    }
                     
                     Group {
                         Spacer()
                         Spacer()
                     }
                     
-                    Button("New Level>"){
-                        
+                    VStack {
+                        if tappedCorrectAnswer {
+                            Button("New Level>"){
+                                
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .tint(.blue.opacity(0.5))
+                            .font(.largeTitle)
+                            .transition(.offset(y: geo.size.height/3))
+                        }
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.blue.opacity(0.5))
-                    .font(.largeTitle)
+                    .animation(.easeInOut(duration: 2.7).delay(2.7), value: tappedCorrectAnswer)
+                    
                     
                     Group {
                         Spacer()
@@ -178,8 +193,8 @@ var body: some View {
     }
         .ignoresSafeArea()
         .onAppear() {
-//          animateViewIn = true
-            tappedCorrectAnswer = true
+          animateViewIn = true
+//            tappedCorrectAnswer = true
         }
     }
 }
