@@ -14,6 +14,7 @@ struct GamePlay: View {
     @State private var animateViewIn = false
     @State private var tappedCorrectAnswer = false
     @State private var hintWiggle = false
+    @State private var scaleNextButton = false
     
 var body: some View {
     GeometryReader { geo in
@@ -85,11 +86,17 @@ var body: some View {
                                 .frame(width: 100, height: 100)
                                 .background(.cyan)
                                 .cornerRadius(20)
-                                .rotationEffect(.degrees(15))
+                                .rotationEffect(.degrees(hintWiggle ? 13 : 17))
                                 .padding()
                                 .padding(.trailing, 20)
                                 .transition(.offset(x: geo.size.width/2))
+                                .onAppear {
+                                    hintWiggle = true
+                                    
+                                }
+                                .animation(.easeInOut(duration: 0.1).delay(2), value: hintWiggle)
                         }
+                        
                     }
                     .animation(.easeOut(duration: 1.5).delay(2), value: animateViewIn)
                     
@@ -170,6 +177,12 @@ var body: some View {
                             .tint(.blue.opacity(0.5))
                             .font(.largeTitle)
                             .transition(.offset(y: geo.size.height/3))
+                            .scaleEffect(scaleNextButton ? 1.2 : 1)
+                            .onAppear{
+                                withAnimation(.easeIn(duration: 0.3).repeatForever()){
+                                    scaleNextButton.toggle()
+                                }
+                            }
                         }
                     }
                     .animation(.easeInOut(duration: 2.7).delay(2.7), value: tappedCorrectAnswer)
@@ -193,8 +206,8 @@ var body: some View {
     }
         .ignoresSafeArea()
         .onAppear() {
-          animateViewIn = true
-//            tappedCorrectAnswer = true
+//          animateViewIn = true
+            tappedCorrectAnswer = true
         }
     }
 }
