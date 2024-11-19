@@ -11,10 +11,15 @@ import SwiftUI
 
 
 struct GamePlay: View {
+    
+    @Environment(\.dismiss) private var dismiss
     @State private var animateViewIn = false
     @State private var tappedCorrectAnswer = false
     @State private var hintWiggle = false
     @State private var scaleNextButton = false
+    @State private var movePointsToScore = false
+    @State private var revealHint = false
+    @State private var revealBook = false
     
 var body: some View {
     GeometryReader { geo in
@@ -28,7 +33,7 @@ var body: some View {
                 // MARK: Controls
             HStack {
                 Button("End Game") {
-                    // TODO: End Game
+                    dismiss()
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.red.opacity(0.5))
@@ -69,9 +74,17 @@ var body: some View {
                                 .transition(.offset(x: -geo.size.width/2))
                                 .onAppear {
                                     hintWiggle = true
-                                    
                                 }
                                 .animation(.easeInOut(duration: 0.1).delay(2), value: hintWiggle)
+                                .onTapGesture {
+                                    withAnimation(.easeOut(duration: 1)) {
+                                        revealHint =  true
+                                    }
+                                }
+                                .rotation3DEffect(.degrees(revealHint ? 1440 : 0), axis: (x: 0, y: 1, z: 0))
+                                .scaleEffect(revealHint ? 5 : 1)
+                                .opacity(revealHint ? 0 : 1)
+                                .offset(x: revealHint ? geo.size.width/2 : 0)
                         }
                     }
                     .animation(.easeOut(duration: 1.5).delay(2), value: animateViewIn)
@@ -135,6 +148,16 @@ var body: some View {
                                 .font(.largeTitle)
                                 .padding(.top, 50)
                                 .transition(.offset(y: -geo.size.height/4))
+                                .offset(x: movePointsToScore ? geo.size.width/2.3 : 0,
+                                        y: movePointsToScore ? -geo.size.height/13 : 0)
+                                .opacity(movePointsToScore ? 0 : 1)
+                                .onAppear {
+                                    withAnimation(
+                                        .easeInOut(
+                                            duration: 1).delay(3)) {
+                                                movePointsToScore = true
+                                            }
+                                }
                         }
                     }
                     .animation(.easeInOut(duration: 1).delay(2), value: tappedCorrectAnswer)
@@ -206,8 +229,8 @@ var body: some View {
     }
         .ignoresSafeArea()
         .onAppear() {
-//          animateViewIn = true
-            tappedCorrectAnswer = true
+          animateViewIn = true
+//            tappedCorrectAnswer = true
         }
     }
 }
