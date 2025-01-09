@@ -73,9 +73,14 @@ var body: some View {
                                 .padding(.trailing, 20)
                                 .transition(.offset(x: -geo.size.width/2))
                                 .onAppear {
-                                    hintWiggle = true
+                                    withAnimation(
+                                        .easeInOut(duration: 0.1)
+                                        .repeatCount(9)
+                                        .delay(5)
+                                        .repeatForever()){
+                                            hintWiggle = true
+                                        }
                                 }
-                                .animation(.easeInOut(duration: 0.1).delay(2), value: hintWiggle)
                                 .onTapGesture {
                                     withAnimation(.easeOut(duration: 1)) {
                                         revealHint =  true
@@ -104,10 +109,15 @@ var body: some View {
                                 .padding(.trailing, 20)
                                 .transition(.offset(x: geo.size.width/2))
                                 .onAppear {
-                                    hintWiggle = true
-                                    
+                                    withAnimation(
+                                        .easeInOut(duration: 0.1)
+                                        .repeatCount(9)
+                                        .delay(5)
+                                        .repeatForever()){
+                                            hintWiggle = true
+                                        }
                                 }
-                                .animation(.easeInOut(duration: 0.1).delay(2), value: hintWiggle)
+                            
                         }
                         
                     }
@@ -158,6 +168,7 @@ var body: some View {
                                                 movePointsToScore = true
                                             }
                                 }
+                            
                         }
                     }
                     .animation(.easeInOut(duration: 1).delay(2), value: tappedCorrectAnswer)
@@ -229,8 +240,8 @@ var body: some View {
     }
         .ignoresSafeArea()
         .onAppear() {
-          animateViewIn = true
-//            tappedCorrectAnswer = true
+//          animateViewIn = true
+            tappedCorrectAnswer = true
         }
     }
 }
