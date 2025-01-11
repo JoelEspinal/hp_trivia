@@ -282,6 +282,17 @@ var body: some View {
                     VStack {
                         if tappedCorrectAnswer {
                             Button("New Level>"){
+                                animateViewIn = false
+                                tappedCorrectAnswer = false
+                                revealHint = false
+                                revealBook = false
+                                movePointsToScore = false
+                                wrongAnswerTapped = []
+                                
+                                DispatchQueue.main
+                                    .asyncAfter(deadline: .now() + 0.5) {
+                                        animateViewIn = true
+                                    }
                                 
                             }
                             .buttonStyle(.borderedProminent)
