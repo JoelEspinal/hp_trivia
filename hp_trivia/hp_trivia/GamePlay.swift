@@ -60,7 +60,7 @@ var body: some View {
                             .opacity(tappedCorrectAnswer ? 0.1 : 1)
                     }
                 }
-                .animation(.easeInOut(duration: 2), value: animateViewIn)
+                .animation(.easeInOut(duration: animateViewIn ? 2 : 0), value: animateViewIn)
                 
                 Spacer()
                 
@@ -108,7 +108,7 @@ var body: some View {
                                 .disabled(tappedCorrectAnswer)
                         }
                     }
-                    .animation(.easeOut(duration: 1.5).delay(2), value: animateViewIn)
+                    .animation(.easeOut(duration: animateViewIn ? 1.5 : 0).delay(animateViewIn ? 2 : 0), value: animateViewIn)
                     
                     VStack{
                         if animateViewIn {
@@ -158,7 +158,7 @@ var body: some View {
                         }
                         
                     }
-                    .animation(.easeOut(duration: 1.5).delay(2), value: animateViewIn)
+                    .animation(.easeOut(duration: animateViewIn ? 1.5 : 0).delay(animateViewIn ? 2 : 0), value: animateViewIn)
                     
                 }
                 .padding(.bottom)
@@ -187,13 +187,12 @@ var body: some View {
                                                     tappedCorrectAnswer = true
                                                 }
                                             }
-                                        
                                     }
                                 }
                             }
                             .animation(
-                                .easeOut(duration: 1)
-                                .delay(1.5), value: animateViewIn)
+                                .easeOut(duration: animateViewIn ? 1 : 0)
+                                .delay(animateViewIn ? 1.5 : 0), value: animateViewIn)
                         } else {
                             VStack {
                                 Text("Answer \(i)")
@@ -216,8 +215,8 @@ var body: some View {
                                     .opacity(tappedCorrectAnswer ? 0.1 : 1)
                             }
                             .animation(
-                                .easeOut(duration: 1)
-                                .delay(1.5), value: animateViewIn)
+                                .easeOut(duration: animateViewIn ? 1 : 0)
+                                .delay(animateViewIn ? 1.5 : 0), value: animateViewIn)
                         }
                     }
                 }
@@ -329,7 +328,6 @@ var body: some View {
         .ignoresSafeArea()
         .onAppear() {
           animateViewIn = true
-//            tappedCorrectAnswer = true
         }
     }
 }
