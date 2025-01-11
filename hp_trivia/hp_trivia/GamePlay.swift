@@ -21,7 +21,7 @@ struct GamePlay: View {
     @State private var movePointsToScore = false
     @State private var revealHint = false
     @State private var revealBook = false
-    @State private var tappedWronAnswer = false
+    @State private var wrongAnswerTapped: [Int] = []
     
     let tempAnswers = [true, false, false, false]
     
@@ -198,12 +198,16 @@ var body: some View {
                                     .padding(10)
                                     .frame(width: geo.size.width/2.15,
                                            height: 80)
-                                    .background(.green.opacity(0.5))
+                                
+                                    .background(wrongAnswerTapped.contains(i) ? .red.opacity(0.5) : .green.opacity(0.5))
                                     .cornerRadius(25)
                                     .transition(.scale)
                                     .onTapGesture {
-                                        
+                                        withAnimation(.easeOut(duration: 1)){
+                                            wrongAnswerTapped.append(i)
+                                        }
                                     }
+                                    .scaleEffect(wrongAnswerTapped.contains(i) ? 0.8 : 1)
                             }
                             .animation(
                                 .easeOut(duration: 1)
