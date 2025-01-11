@@ -57,6 +57,7 @@ var body: some View {
                             .multilineTextAlignment(.center)
                             .padding()
                             .transition(.scale)
+                            .opacity(tappedCorrectAnswer ? 0.1 : 1)
                     }
                 }
                 .animation(.easeInOut(duration: 2), value: animateViewIn)
@@ -103,6 +104,8 @@ var body: some View {
                                         .scaleEffect(revealHint ? 1.33 : 1)
                                     
                                 )
+                                .opacity(tappedCorrectAnswer ? 0.1 : 1)
+                                .disabled(tappedCorrectAnswer)
                         }
                     }
                     .animation(.easeOut(duration: 1.5).delay(2), value: animateViewIn)
@@ -148,9 +151,10 @@ var body: some View {
                                         .padding(.trailing, 33)
                                         .opacity(revealBook ? 1 : 0)
                                         .scaleEffect(revealBook ? 1.33 : 1)
-                                    
                                 )
                             
+                            .opacity(tappedCorrectAnswer ? 0.1 : 1)
+                            .disabled(tappedCorrectAnswer)
                         }
                         
                     }
@@ -208,7 +212,8 @@ var body: some View {
                                         }
                                     }
                                     .scaleEffect(wrongAnswerTapped.contains(i) ? 0.8 : 1)
-                                    .disabled(wrongAnswerTapped.contains(i))
+                                    .disabled(tappedCorrectAnswer || wrongAnswerTapped.contains(i))
+                                    .opacity(tappedCorrectAnswer ? 0.1 : 1)
                             }
                             .animation(
                                 .easeOut(duration: 1)
