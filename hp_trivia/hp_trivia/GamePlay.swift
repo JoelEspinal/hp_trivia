@@ -257,7 +257,7 @@ var body: some View {
                                 .transition(.scale.combined(with: .offset(y: -geo.size.height/2)))
                         }
                     }
-                    .animation(.easeInOut(duration: 1).delay(1), value: tappedCorrectAnswer)
+                    .animation(.easeInOut(duration: tappedCorrectAnswer ? 1 : 0).delay(tappedCorrectAnswer ? 1 : 0), value: tappedCorrectAnswer)
                         
                     Spacer()
                     
@@ -306,7 +306,7 @@ var body: some View {
                             }
                         }
                     }
-                    .animation(.easeInOut(duration: 2.7).delay(2.7), value: tappedCorrectAnswer)
+                    .animation(.easeInOut(duration: tappedCorrectAnswer ? 2.7 : 0).delay(tappedCorrectAnswer ? 2.7 : 0), value: tappedCorrectAnswer)
                     
                     
                     Group {
