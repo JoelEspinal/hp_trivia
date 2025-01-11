@@ -93,6 +93,8 @@ var body: some View {
                                     withAnimation(.easeOut(duration: 1)) {
                                         revealHint =  true
                                     }
+                                    
+                                    playFlipSound()
                                 }
                                 .rotation3DEffect(.degrees(revealHint ? 1440 : 0), axis: (x: 0, y: 1, z: 0))
                                 .scaleEffect(revealHint ? 5 : 1)
@@ -137,6 +139,7 @@ var body: some View {
                                         }
                                 }
                                 .onTapGesture {
+                                    playFlipSound()
                                     withAnimation(.easeOut(duration: 1)) {
                                         revealBook =  true
                                     }
@@ -189,6 +192,8 @@ var body: some View {
                                                 withAnimation(.easeOut(duration: 1)) {
                                                     tappedCorrectAnswer = true
                                                 }
+                                                
+                                                playCorrectSound()
                                             }
                                     }
                                 }
@@ -212,6 +217,8 @@ var body: some View {
                                         withAnimation(.easeOut(duration: 1)){
                                             wrongAnswerTapped.append(i)
                                         }
+                                        
+                                        playWrongSound()
                                     }
                                     .scaleEffect(wrongAnswerTapped.contains(i) ? 0.8 : 1)
                                     .disabled(tappedCorrectAnswer || wrongAnswerTapped.contains(i))
