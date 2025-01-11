@@ -345,8 +345,25 @@ var body: some View {
         musicPlayer = try! AVAudioPlayer(contentsOf: URL(filePath: sound!))
         musicPlayer.volume = 0.1
         musicPlayer.numberOfLoops = -1
-        musicPlayer.play()
+//        musicPlayer.play()
     }
+    
+    private func playFlipSound() {
+        let sound = Bundle.main.path(forResource: "page-flip", ofType: "mp3")
+        sfxPlayer = try! AVAudioPlayer(contentsOf: URL(filePath: sound!))
+        sfxPlayer.play()
+    }
+    private func playWrongSound() {
+        let sound = Bundle.main.path(forResource: "negative-beeps", ofType: "mp3")
+        sfxPlayer = try! AVAudioPlayer(contentsOf: URL(filePath: sound!))
+        sfxPlayer.play()
+    }
+    private func playCorrectSound() {
+        let sound = Bundle.main.path(forResource: "magic-wand", ofType: "mp3")
+        sfxPlayer = try! AVAudioPlayer(contentsOf: URL(filePath: sound!))
+        sfxPlayer.play()
+    }
+    
 }
 
 struct GamePlay_Previews: PreviewProvider {
