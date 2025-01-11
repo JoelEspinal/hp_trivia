@@ -208,6 +208,7 @@ var body: some View {
                                         }
                                     }
                                     .scaleEffect(wrongAnswerTapped.contains(i) ? 0.8 : 1)
+                                    .disabled(wrongAnswerTapped.contains(i))
                             }
                             .animation(
                                 .easeOut(duration: 1)
