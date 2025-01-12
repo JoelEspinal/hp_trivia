@@ -219,6 +219,7 @@ var body: some View {
                                         }
                                         
                                         playWrongSound()
+                                        giveWrongFeedback()
                                     }
                                     .scaleEffect(wrongAnswerTapped.contains(i) ? 0.8 : 1)
                                     .disabled(tappedCorrectAnswer || wrongAnswerTapped.contains(i))
@@ -371,6 +372,10 @@ var body: some View {
         sfxPlayer.play()
     }
     
+    private func giveWrongFeedback() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.error)
+    }
 }
 
 struct GamePlay_Previews: PreviewProvider {
