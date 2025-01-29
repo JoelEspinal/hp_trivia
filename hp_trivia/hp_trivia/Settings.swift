@@ -8,17 +8,10 @@
 import Foundation
 import SwiftUI
 
-enum BookStatus {
-    case active
-    case inactive
-    case locked
-}
-
 struct Settings: View {
 @Environment(\.dismiss) private var dismiss
 
-@State private var books: [BookStatus] = [.active, .active, .inactive,
-                                  .locked, .locked, .locked, .locked]
+
 
 var body: some View {
 ZStack {
