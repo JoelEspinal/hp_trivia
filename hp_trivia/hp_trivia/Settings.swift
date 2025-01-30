@@ -9,14 +9,13 @@ import Foundation
 import SwiftUI
 
 struct Settings: View {
-@Environment(\.dismiss) private var dismiss
-
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var store: Store
 
 
 var body: some View {
 ZStack {
-InfoBackgroundImage()
-
+    InfoBackgroundImage()
 VStack {
     Text ("Witch books would you like to see question from?")
         .font(.title)
@@ -25,7 +24,7 @@ VStack {
     ScrollView {
         LazyVGrid(columns: [GridItem(), GridItem()]){
             ForEach(0 ..< 7) { i in
-                if books[i] == .active {
+                if store.books[i] == .active {
                     ZStack(alignment: .bottomTrailing) {
                         Image("hp\(i+1)")
                             .renderingMode(.none)
@@ -41,9 +40,9 @@ VStack {
                             .padding(3)
                         }
                     .onTapGesture {
-                        books[i] = .inactive
+                        store.books[i] = .inactive
                     }
-                    } else if books[i] == .inactive {
+                } else if store.books[i] == .inactive {
                         ZStack(alignment: .bottomTrailing) {
                             Image("hp\(i+1)")
                                 .renderingMode(.none)
@@ -61,7 +60,7 @@ VStack {
                         }
                         
                     .onTapGesture {
-                        books[i] = .active
+                        store.books[i] = .active
                     }
                     } else {
                         ZStack {
@@ -90,11 +89,11 @@ VStack {
     }
     .doneButton()
 }
+
 }
 
 
 
 #Preview {
-Settings()
+    Settings().environmentObject(Store())
 }
-

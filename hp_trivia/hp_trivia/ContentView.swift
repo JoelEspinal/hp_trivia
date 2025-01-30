@@ -9,6 +9,7 @@
     import AVKit
 
     struct ContentView: View {
+        @EnvironmentObject private var store: Store
         @EnvironmentObject private var game: Game
         @State private var audioPlayer: AVAudioPlayer!
         @State private var scalePlayButton = false
@@ -150,10 +151,12 @@
                                 }
                                 .transition(.offset(x: geo.size.width / 4))
                                 .fullScreenCover(isPresented: $playGame) {
-                                    SplashGame() {
-                                        GamePlay()
-                                            .environment(game)
-                                    }
+//                                    SplashGame() {
+//                                        GamePlay()
+//                                            .environment(game)
+//                                    }
+                                    Settings().environmentObject(store)
+
                                 }
                             }
                         }
@@ -182,6 +185,7 @@
 
     #Preview {
         ContentView()
+            .environmentObject(Store())
             .environmentObject(Game())
     }
 

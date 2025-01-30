@@ -22,8 +22,8 @@ struct InfoBackgroundImage: View {
         Image("parchment")
         .renderingMode(.none)
         .resizable()
-        .ignoresSafeArea()
         .background(.brown)
+        .ignoresSafeArea()
         
     }
 }
