@@ -20,16 +20,23 @@ enum BookStatus {
 @MainActor
 class Store: ObservableObject {
     @Published var books: [BookStatus] = [.active, .active, .inactive,
-                                      .locked, .locked, .locked, .locked]
+                                          .locked, .locked, .locked, .locked]
     
     @Published var products: [Product] = []
     @Published var purchasedIDs = Set<String>()
     
     private var productIDs = ["hp4", "hp5", "hp6", "hp7"]
     
+    private var updates: Task<Void, Never>? = nil
+    
+    init() {
+        updates = watchForUpdates()
+    }
+    
     func loadProducrs() async {
         do {
             let results = try await Product.products(for: productIDs)
+            products = results
         }
         catch {
             print("Couldn't fetch those products: \(error)")
@@ -67,13 +74,13 @@ class Store: ObservableObject {
         }
     }
     
-    func checkProducs() async {
+    private func checkProducs() async {
         for product in products {
             guard let state = await product.currentEntitlement else { return }
             
             switch state {
-                case .unverified(let signedType, let verificationError):
-                    print("Eror on \(signedType): \(verificationError)")
+            case .unverified(let signedType, let verificationError):
+                print("Eror on \(signedType): \(verificationError)")
             case .verified(let singnedType):
                 if singnedType.revocationDate == nil {
                     purchasedIDs.insert(singnedType.productID)
@@ -81,6 +88,14 @@ class Store: ObservableObject {
                 else {
                     purchasedIDs.remove(singnedType.productID)
                 }
+            }
+        }
+    }
+    
+    private func watchForUpdates() -> Task<Void, Never> {
+        Task(priority: .background){
+          for await _ in Transaction.updates {
+                await self.checkProducs()
             }
         }
     }

@@ -19,6 +19,9 @@ struct hp_triviaApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(store)
+                .task {
+                    await store.loadProducrs()
+                }
                 .environmentObject(Game())
                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
