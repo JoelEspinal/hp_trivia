@@ -14,6 +14,7 @@ import AVKit
 struct GamePlay: View {
     
     @Environment(\.dismiss) private var dismiss
+    @Environment private var game: Game
     @Namespace private var namespace
     @State private var musicPlayer: AVAudioPlayer!
     @State private var sfxPlayer: AVAudioPlayer!
@@ -27,6 +28,10 @@ struct GamePlay: View {
     @State private var wrongAnswerTapped: [Int] = []
     
     let tempAnswers = [true, false, false, false]
+    
+//    init() {
+//        
+//    }
     
 var body: some View {
     GeometryReader { geo in
@@ -381,7 +386,7 @@ var body: some View {
 struct GamePlay_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            GamePlay()
+//            GamePlay()
         }
     }
 }

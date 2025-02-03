@@ -9,11 +9,16 @@ import SwiftUI
 
 @main
 struct hp_triviaApp: App {
+    
     let persistenceController = PersistenceController.shared
 
+     
+    init() {
+        Constans.sharedConstants.initQuestions()
+    }
+    
     @StateObject private var store = Store()
     @StateObject private var game = Game()
-    
     
     var body: some Scene {
         WindowGroup {

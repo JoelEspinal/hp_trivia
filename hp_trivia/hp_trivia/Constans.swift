@@ -8,33 +8,52 @@
 import Foundation
 import SwiftUI
 
-enum Constans {
+final class Constans {
+    
+    static let sharedConstants: Constans = Constans()
+    
     static let hpFont = "PartyLetPlain"
+                                                
+  
+    var questions: [Question] = []
+    var previewQuestion: Question!
     
-    static let previewQuertion = try! JSONDecoder().decode([Question].self,
-                                                           from: Data(contentsOf: Bundle.main.url(forResource: "trivia", withExtension: "json")!))[0]
+    private init () {
+        initQuestions()
+    }
     
-    
-}
-
-struct InfoBackgroundImage: View {
-    var body: some View {
-        Image("parchment")
-        .renderingMode(.none)
-        .resizable()
-        .background(.brown)
-        .ignoresSafeArea()
-        
+    func initQuestions() {
+        let path =  Bundle.main.path(forResource: "trivia", ofType: "json")
+        let url = URL(fileURLWithPath: path!)
+        do {
+            questions = try JSONDecoder().decode([Question].self, from: Data(contentsOf: url))
+            previewQuestion = questions[0]
+        } catch {
+            print(error)
+        }
     }
 }
 
-extension Button {
-    func doneButton() -> some View {
+
+    struct InfoBackgroundImage: View {
+        var body: some View {
+            Image("parchment")
+                .renderingMode(.none)
+                .resizable()
+                .background(.brown)
+                .ignoresSafeArea()
+            
+        }
+    }
+    
+    extension Button {
+        func doneButton() -> some View {
             self
-            .font(.largeTitle)
-            .padding()
-            .buttonStyle(.borderedProminent)
-            .tint(.brown)
-            .foregroundColor(.white)
+                .font(.largeTitle)
+                .padding()
+                .buttonStyle(.borderedProminent)
+                .tint(.brown)
+                .foregroundColor(.white)
+        }
     }
-}
+

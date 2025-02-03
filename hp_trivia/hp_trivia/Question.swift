@@ -8,7 +8,7 @@
 import Foundation
 
 struct Question: Codable {
-    let id: Int
+    var id: Int
     let question: String
     var answers:[String : Bool] = [:]
     let book: Int

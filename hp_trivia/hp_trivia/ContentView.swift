@@ -151,16 +151,14 @@
                                 }
                                 .transition(.offset(x: geo.size.width / 4))
                                 .fullScreenCover(isPresented: $playGame) {
-//                                    SplashGame() {
-//                                        GamePlay()
-//                                            .environment(game)
-//                                    }
+                                  
+//                                    Game().environmentObject(game)
                                     Settings().environmentObject(store)
 
                                 }
                             }
                         }
-                        //.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
+                        .animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                         
                         Spacer()
                         
