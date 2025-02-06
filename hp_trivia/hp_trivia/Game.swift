@@ -18,6 +18,12 @@ class Game: ObservableObject {
     
     var currentQuestion: Question? = Constans.sharedConstants.previewQuestion
     
+    var answers: [String] = []
+    
+    var correctAnswqer: String {
+        (currentQuestion?.answers.first(where: { $0.value == true })!.key)!
+    }
+    
     func filterQuestions(to books: [Int]) {
         filteredQuesdtions = allQuestions.filter { books.contains($0.book) }
     }
@@ -34,6 +40,18 @@ class Game: ObservableObject {
             potentialQuestion = filteredQuesdtions.randomElement()!
         }
         currentQuestion = potentialQuestion
+        
+        answers = []
+        
+        for answer in currentQuestion!.answers.keys {
+            answers.append(answer)
+        }
+        
+        answers.shuffle()
+    }
+    
+    func correct() {
+        answeredQuestions.append(currentQuestion?.id ?? 0)
     }
     
     init() {
