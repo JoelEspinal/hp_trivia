@@ -9,6 +9,9 @@ import Foundation
 
 @MainActor
 class Game: ObservableObject {
+    @Published var gameScore: Int = 0
+    @Published var questionScore = 0
+    @Published var recentScore = [0, 0, 0]
     
     private var allQuestions: [Question] = []
     
@@ -23,6 +26,14 @@ class Game: ObservableObject {
     var correctAnswqer: String {
         (currentQuestion?.answers.first(where: { $0.value == true })!.key)!
     }
+    
+    
+    func startGame() {
+        gameScore = 0
+        questionScore = 5
+        answeredQuestions = []
+    }
+    
     
     func filterQuestions(to books: [Int]) {
         filteredQuesdtions = allQuestions.filter { books.contains($0.book) }
@@ -48,15 +59,23 @@ class Game: ObservableObject {
         }
         
         answers.shuffle()
+        questionScore = 5
     }
     
     func correct() {
         answeredQuestions.append(currentQuestion?.id ?? 0)
+        gameScore += questionScore
+    }
+    func endGame() {
+        recentScore[2] = recentScore[1]
+        recentScore[1] = recentScore[0]
+        recentScore[0] = gameScore
     }
     
     init() {
         decodeQuestions()
     }
+   
     
     private func decodeQuestions() {
         if let url = Bundle.main.url(forResource: "trivia", withExtension: "json") {
