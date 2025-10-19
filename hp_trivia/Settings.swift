@@ -108,11 +108,9 @@ VStack {
     }
         .doneButton()
     }
-    .foregroundColor(.black)
+//    .foregroundColor(.black)
 
 }
-
-
 
 #Preview {
     Settings().environmentObject(Store())

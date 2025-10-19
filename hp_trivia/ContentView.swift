@@ -8,74 +8,74 @@
     import SwiftUI
     import AVKit
 
-    struct ContentView: View {
-        @EnvironmentObject private var store: Store
-        @EnvironmentObject private var game: Game
-        @State private var audioPlayer: AVAudioPlayer!
-        @State private var scalePlayButton = false
-        @State private var moveBackgroundImage = false
-        @State private var animateViewsIn = false
-        @State private var showInstruction = false
-        @State private var showSettings = false
-        @State private var playGame = false
-        
-        var body: some View {
-            GeometryReader { geo in
-                ZStack {
-                    Image("hogwarts")
-                        .renderingMode(.none)
-                        .resizable()
-                        .frame(width: geo.size.width * 3, height: geo.size.height)
-                        .padding(.top, 3)
-                        .offset(x: moveBackgroundImage ?
-                                geo.size.width * 1.1 :
-                                    -geo.size.width * 1.1)
-                        .onAppear {
-                            withAnimation(.linear(duration: 60).repeatForever()) {
-                                moveBackgroundImage.toggle()
-                            }
+struct ContentView: View {
+    @EnvironmentObject private var store: Store
+    @EnvironmentObject private var game: Game
+    @State private var audioPlayer: AVAudioPlayer!
+    @State private var scalePlayButton = false
+    @State private var moveBackgroundImage = false
+    @State private var animateViewsIn = false
+    @State private var showInstruction = false
+    @State private var showSettings = false
+    @State private var playGame = false
+    
+    var body: some View {
+        GeometryReader { geo in
+            ZStack {
+                Image("hogwarts")
+                    .renderingMode(.none)
+                    .resizable()
+                    .frame(width: geo.size.width * 3, height: geo.size.height)
+                    .padding(.top, 3)
+                    .offset(x: moveBackgroundImage ?
+                            geo.size.width * 1.1 :
+                                -geo.size.width * 1.1)
+                    .onAppear {
+                        withAnimation(.linear(duration: 60).repeatForever()) {
+                            moveBackgroundImage.toggle()
                         }
-                        .ignoresSafeArea()
-                }
+                    }
+                    .ignoresSafeArea()
+            }
+            
+            VStack {
+                VStack {
+                    if animateViewsIn {
+                        Button {
+                            showInstruction.toggle()
+                        } label: {
+                            Image(systemName: "bolt.fill")
+                                .font(.largeTitle)
+                                .imageScale(.large)
+                                .colorInvert()
+                        }
+                        VStack {
+                            Text("HP")
+                                .font(.custom(Constans.hpFont, size: 70))
+                                .colorInvert()
+                                .padding(.bottom, -50)
+                            Text("Trivia")
+                                .font(.custom(Constans.hpFont, size: 60))
+                                .colorInvert()
+                        }
+                        .padding(.top, 70)
+                        .transition(.move(edge: .top))
+                    }
+                }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
+                
                 
                 VStack {
-                    VStack {
-                        if animateViewsIn {
-                            Button {
-                                showInstruction.toggle()
-                            } label: {
-                                Image(systemName: "bolt.fill")
-                                    .font(.largeTitle)
-                                    .imageScale(.large)
-                                    .colorInvert()
-                            }
-                            VStack {
-                                Text("HP")
-                                    .font(.custom(Constans.hpFont, size: 70))
-                                    .colorInvert()
-                                    .padding(.bottom, -50)
-                                Text("Trivia")
-                                    .font(.custom(Constans.hpFont, size: 60))
-                                    .colorInvert()
-                            }
-                            .padding(.top, 70)
-                            .transition(.move(edge: .top))
-                        }
-                    }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
-                    
-                    
-                    VStack {
-                        Text("Recent Score").colorInvert()
-                            .font(.title2)
-                        Text("\(game.recentScore[0])")
-                        Text("\(game.recentScore[1])")
-                        Text("\(game.recentScore[2])")
-                    .font(.title3)
-                    .padding(.horizontal)
-                    .foregroundColor(.white)
-                    .background(.gray.opacity(0.7))
-                    .cornerRadius(15)
-                    .transition(.opacity)
+                    Text("Recent Score").colorInvert()
+                        .font(.title2)
+                    Text("\(game.recentScore[0])")
+                    Text("\(game.recentScore[1])")
+                    Text("\(game.recentScore[2])")
+                        .font(.title3)
+                        .padding(.horizontal)
+                        .foregroundColor(.white)
+                        .background(.gray.opacity(0.7))
+                        .cornerRadius(15)
+                        .transition(.opacity)
                     HStack {
                         Spacer()
                         
@@ -93,10 +93,10 @@
                                 .animation(.easeOut(duration: 0.7).delay(0.7), value: animateViewsIn)
                                 .sheet(isPresented: $showInstruction) {
                                     Instructions()
-                              }
+                                }
                             }
                         }
-
+                        
                         Spacer()
                         
                         VStack {
@@ -105,7 +105,7 @@
                                     filterQuestions()
                                     game.startGame()
                                     playGame.toggle()
-                                
+                                    
                                     print("pressed")
                                     
                                 } label: {
@@ -122,7 +122,7 @@
                                     //                                    Settings()
                                     //                                    Instructions()
                                     
-//                                    GamePlay(game: )
+                                    //                                    GamePlay(game: )
                                 }
                                 .scaleEffect(scalePlayButton ? 1.2 : 1)
                                 .onAppear{
@@ -130,7 +130,7 @@
                                         scalePlayButton.toggle()
                                     }
                                 }
-                               // .transition(.offset(y: geo.size.height / 3))
+                                // .transition(.offset(y: geo.size.height / 3))
                                 //
                                 //                        }.animation(.easeOut(duration: 0.7).delay(2), value: animateViewsIn)
                                 
@@ -150,15 +150,22 @@
                                 }
                                 label: {
                                     Image(systemName: "gearshape.fill")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.white)
-                                    .shadow(radius: 5)
+                                        .font(.largeTitle)
+                                        .foregroundColor(.white)
+                                        .shadow(radius: 5)
                                 }
                                 .transition(.offset(x: geo.size.width / 4))
                                 .fullScreenCover(isPresented: $playGame) {
-                                    GamePlay().environmentObject(store)
+                                    
+                                    // TODO: Review this block maybe fix
+                                
+//                                    GamePlay(game: .environmentObject(game))
+//                                    GamePlay(game: game<#Environment<Game>#>)
 //                                    Game().environmentObject(game)
-//                                    Settings().environmentObject(store)
+                                    
+                                    // TODO: Review this block maybe fix
+                                    
+                                    Settings().environmentObject(store)
                                         .onAppear {
                                             audioPlayer.setVolume(0, fadeDuration: 2)
                                         }
@@ -169,8 +176,8 @@
                                 
                                 .sheet(isPresented: $showSettings) {
                                     Settings().environmentObject(store)
-
-                                  }
+                                    
+                                }
                                 .disabled(store.books.contains(.active) ? false : true)
                                 
                             }
@@ -196,38 +203,37 @@
                 
                 Spacer()
             } .ignoresSafeArea()
-            .onAppear() {
-                animateViewsIn = true
-                playAudio()
-            }
-        }
-        
-        private func playAudio() {
-            let sound = Bundle.main.path(forResource: "magic-in-the-air", ofType: "mp3")
-            audioPlayer = try! AVAudioPlayer(contentsOf: URL(filePath: sound!))
-            audioPlayer.numberOfLoops = -1
-            audioPlayer.play()
-        }
-        
-        private func filterQuestions() {
-            var books: [Int] = []
-            
-            
-            for (index, status) in store.books.enumerated() {
-                if status == .active {
-                    books.append(index+1)
+                .onAppear() {
+                    animateViewsIn = true
+                    playAudio()
                 }
-            }
-            
-            game.filterQuestions(to: books)
-            game.newQuestion()
         }
     }
-
-    #Preview {
-        ContentView()
-            .environmentObject(Store())
-            .environmentObject(Game())
+    
+    func playAudio() {
+        let sound = Bundle.main.path(forResource: "magic-in-the-air", ofType: "mp3")
+        audioPlayer = try! AVAudioPlayer(contentsOf: URL(filePath: sound!))
+        audioPlayer.numberOfLoops = -1
+        audioPlayer.play()
     }
+    
+    private func filterQuestions() {
+        var books: [Int] = []
+        
+        
+        for (index, status) in store.books.enumerated() {
+            if status == .active {
+                books.append(index+1)
+            }
+        }
+        
+        game.filterQuestions(to: books)
+        game.newQuestion()
+    }
+}
 
-
+#Preview {
+    ContentView()
+        .environmentObject(Store())
+        .environmentObject(Game())
+}
