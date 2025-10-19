@@ -35,25 +35,31 @@ final class Constans {
 }
 
 
-    struct InfoBackgroundImage: View {
-        var body: some View {
-            Image("parchment")
-                .renderingMode(.none)
-                .resizable()
-                .background(.brown)
-                .ignoresSafeArea()
-            
-        }
+struct InfoBackgroundImage: View {
+    var body: some View {
+        Image("parchment")
+            .renderingMode(.none)
+            .resizable()
+            .background(.brown)
+            .ignoresSafeArea()
+        
     }
-    
-    extension Button {
-        func doneButton() -> some View {
-            self
-                .font(.largeTitle)
-                .padding()
-                .buttonStyle(.borderedProminent)
-                .tint(.brown)
-                .foregroundColor(.white)
-        }
-    }
+}
 
+extension Button {
+    func doneButton() -> some View {
+        self
+            .font(.largeTitle)
+            .padding()
+            .buttonStyle(.borderedProminent)
+            .tint(.brown)
+            .foregroundColor(.white)
+    }
+}
+
+extension FileManager {
+    static var documentsDiretory: URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+}

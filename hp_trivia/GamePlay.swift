@@ -14,7 +14,7 @@ import AVKit
 struct GamePlay: View {
     
     @Environment(\.dismiss) private var dismiss
-    @Environment private var game: Game
+    @Environment  var game: Game
     @Namespace private var namespace
     @State private var musicPlayer: AVAudioPlayer!
     @State private var sfxPlayer: AVAudioPlayer!
@@ -27,13 +27,13 @@ struct GamePlay: View {
     @State private var revealBook = false
     @State private var wrongAnswerTapped: [Int] = []
     
-    let tempAnswers = [true, false, false, false]
     
 //    init() {
 //        
 //    }
     
 var body: some View {
+    
     GeometryReader { geo in
         ZStack {
             Image("hogwarts")
@@ -45,6 +45,7 @@ var body: some View {
                 // MARK: Controls
             HStack {
                 Button("End Game") {
+                    game.endGame()
                     dismiss()
                 }
                 .buttonStyle(.borderedProminent)
@@ -52,7 +53,7 @@ var body: some View {
                 
                 Spacer()
                 
-                Text("Score: 33")
+                Text("Score: \(game.gameScore)")
             }
             .padding()
             .padding(.vertical, 30)
@@ -60,7 +61,7 @@ var body: some View {
                 //MARK: Question
                 VStack {
                     if animateViewIn {
-                        Text("Who is Harry Potter?")
+                        Text(game.currentQuestion?.question ?? "")
                             .font(.custom(Constans.hpFont, size: 50))
                             .multilineTextAlignment(.center)
                             .padding()
@@ -100,13 +101,14 @@ var body: some View {
                                     }
                                     
                                     playFlipSound()
+                                    game.questionScore -= 1
                                 }
                                 .rotation3DEffect(.degrees(revealHint ? 1440 : 0), axis: (x: 0, y: 1, z: 0))
                                 .scaleEffect(revealHint ? 5 : 1)
                                 .opacity(revealHint ? 0 : 1)
                                 .offset(x: revealHint ? geo.size.width/2 : 0)
                                 .overlay(
-                                    Text("The boy who ___")
+                                    Text(game.currentQuestion?.hint ?? "")
                                         .padding(.leading, 33)
                                         .minimumScaleFactor(0.5)
                                         .multilineTextAlignment(.center)
@@ -145,6 +147,7 @@ var body: some View {
                                 }
                                 .onTapGesture {
                                     playFlipSound()
+                                    game.questionScore += 1
                                     withAnimation(.easeOut(duration: 1)) {
                                         revealBook =  true
                                     }
@@ -155,7 +158,8 @@ var body: some View {
                                 .opacity(revealBook ? 0 : 1)
                                 .offset(x: revealBook ? geo.size.width/2 : 0)
                                 .overlay(
-                                    Image("hp1")
+                                    Image("hp\(game.questionScore)")
+                                
                                     .renderingMode(.original)
                                     .resizable()
                                         .scaledToFit()
@@ -176,29 +180,35 @@ var body: some View {
                 
                 // MARK: Answers
                 LazyVGrid(columns: [GridItem(alignment: .leading), GridItem()]){
-                    ForEach(1..<5) { i in
-                        if tempAnswers[i-1] == true {
+                    ForEach(Array(game.answers.enumerated()),
+                            id: \.offset) { i, answer in
+                        if game!.currentQuestion.answers[answer] == true {
                             VStack {
                                 if animateViewIn {
                                     if tappedCorrectAnswer == false {
-                                        Text("Answer \(i)")
+                                        Text(answer)
                                             .multilineTextAlignment(.center)
                                             .padding(10)
                                             .frame(width: geo.size.width/2.15,
                                                    height: 80)
                                             .background(.green.opacity(0.5))
                                             .cornerRadius(25)
-                                        
+                                            .transition(.scale)
                                             .transition(.asymmetric(insertion: .scale, removal:
                                                     .scale(scale: 0.5).combined(with:  .opacity.animation(.easeOut(duration: 0.5)))))
                                         
-                                            .matchedGeometryEffect(id: "answer", in: namespace)
+//                                            .matchedGeometryEffect(id: "answer", in: namespace)
+                                            .transition(.scale)
                                             .onTapGesture {
                                                 withAnimation(.easeOut(duration: 1)) {
                                                     tappedCorrectAnswer = true
                                                 }
                                                 
                                                 playCorrectSound()
+                                                 DispatchQueue.main
+                                                    .asyncAfter(deadline: .now() + 3.5) {
+                                                        game.correct()
+                                                    }
                                             }
                                     }
                                 }
@@ -207,8 +217,9 @@ var body: some View {
                                 .easeOut(duration: animateViewIn ? 1 : 0)
                                 .delay(animateViewIn ? 1.5 : 0), value: animateViewIn)
                         } else {
+                    // MARK: Wrong Answers
                             VStack {
-                                Text("Answer \(i)")
+                                Text(answer)
                                     .minimumScaleFactor(0.5)
                                     .multilineTextAlignment(.center)
                                     .padding(10)
@@ -225,6 +236,7 @@ var body: some View {
                                         
                                         playWrongSound()
                                         giveWrongFeedback()
+                                        game.questionScore += 1
                                     }
                                     .scaleEffect(wrongAnswerTapped.contains(i) ? 0.8 : 1)
                                     .disabled(tappedCorrectAnswer || wrongAnswerTapped.contains(i))
@@ -245,7 +257,7 @@ var body: some View {
                     
                     VStack{
                         if tappedCorrectAnswer {
-                            Text("5")
+                            Text("\(game.questionScore)")
                                 .font(.largeTitle)
                                 .padding(.top, 50)
                                 .transition(.offset(y: -geo.size.height/4))
@@ -278,7 +290,7 @@ var body: some View {
                     Spacer()
                     
                     if tappedCorrectAnswer {
-                        Text("Answer 1")
+                        Text(game.currentQuestion)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.center)
                             .padding(10)
@@ -286,7 +298,8 @@ var body: some View {
                             .background(.green.opacity(0.5))
                             .cornerRadius(25)
                             .scaleEffect(2)
-                            .matchedTransitionSource(id: "answer", in: namespace)
+//                            .matchedTransitionSource(id: "answer", in: namespace)
+                            .transition(.scale)
                     }
                     
                     Group {
@@ -303,6 +316,7 @@ var body: some View {
                                 revealBook = false
                                 movePointsToScore = false
                                 wrongAnswerTapped = []
+                                game.newQuestion()
                                 
                                 DispatchQueue.main
                                     .asyncAfter(deadline: .now() + 0.5) {
@@ -344,7 +358,10 @@ var body: some View {
         .ignoresSafeArea()
         .onAppear() {
           animateViewIn = true
-          playMusic()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                playMusic()
+            }
         }
     }
     
@@ -386,7 +403,9 @@ var body: some View {
 struct GamePlay_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-//            GamePlay()
+//            GamePlay(game: Game())
+            
         }
     }
 }
+

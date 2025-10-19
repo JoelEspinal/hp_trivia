@@ -34,7 +34,7 @@ VStack {
                             .resizable()
                             .scaledToFit()
                             .shadow(radius: 7)
-                        
+                            
                         Image(systemName: "checkmark.circle.fill")
                             .font(.largeTitle)
                             .imageScale(.large)
@@ -44,9 +44,11 @@ VStack {
                         }
                     .task {
                         store.books[i] = .active
+                        store.saveStatus()
                     }
                     .onTapGesture {
                         store.books[i] = .inactive
+                        store.saveStatus()
                     }
                 } else if store.books[i] == .inactive {
                         ZStack(alignment: .bottomTrailing) {
@@ -67,6 +69,7 @@ VStack {
                         
                     .onTapGesture {
                         store.books[i] = .active
+                        store.saveStatus()
                     }
                     } else {
                         ZStack {
@@ -101,9 +104,11 @@ VStack {
     }
     
     Button("Done") {
+        dismiss()
     }
-    .doneButton()
-}
+        .doneButton()
+    }
+    .foregroundColor(.black)
 
 }
 

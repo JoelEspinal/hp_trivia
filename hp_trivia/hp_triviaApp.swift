@@ -26,6 +26,8 @@ struct hp_triviaApp: App {
                 .environmentObject(store)
                 .task {
                     await store.loadProducrs()
+                    game.loadScores()
+                    store.loadStatus()
                 }
                 .environmentObject(Game())
                .environment(\.managedObjectContext, persistenceController.container.viewContext)

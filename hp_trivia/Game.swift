@@ -6,11 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 @MainActor
 class Game: ObservableObject {
     @Published var gameScore: Int = 0
     @Published var questionScore = 0
+
     @Published var recentScore = [0, 0, 0]
     
     private var allQuestions: [Question] = []
@@ -18,6 +20,8 @@ class Game: ObservableObject {
     private var answeredQuestions: [Int] = []
     
     var filteredQuesdtions: [Question] = []
+    
+    private let savePath = FileManager.documentsDiretory.appending(path: "SaveScores")
     
     var currentQuestion: Question? = Constans.sharedConstants.previewQuestion
     
@@ -64,18 +68,41 @@ class Game: ObservableObject {
     
     func correct() {
         answeredQuestions.append(currentQuestion?.id ?? 0)
-        gameScore += questionScore
+        withAnimation {
+            gameScore += questionScore
+        }
     }
     func endGame() {
         recentScore[2] = recentScore[1]
         recentScore[1] = recentScore[0]
         recentScore[0] = gameScore
+        
+        saveScores()
     }
+    
+    func loadScores() {
+        do {
+            let data = try Data(contentsOf: savePath)
+            recentScore = try JSONDecoder().decode([Int].self, from: data)
+        } catch {
+            recentScore = [0, 0, 0]
+//            print("Error loading JSON data: \(error)")
+        }
+    }
+    
     
     init() {
         decodeQuestions()
     }
    
+    private func saveScores() {
+        do {
+            let data = try JSONEncoder().encode(recentScore)
+            try data.write(to: savePath)
+        } catch {
+            print("Unable to save data: \(error)")
+        }
+    }
     
     private func decodeQuestions() {
         if let url = Bundle.main.url(forResource: "trivia", withExtension: "json") {
