@@ -27,7 +27,7 @@ struct GamePlay: View {
     @State private var revealBook = false
     @State private var wrongAnswerTapped: [Int] = []
     
-    
+//    
 //    init() {
 //        
 //    }
@@ -182,7 +182,8 @@ var body: some View {
                 LazyVGrid(columns: [GridItem(alignment: .leading), GridItem()]){
                     ForEach(Array(game.answers.enumerated()),
                             id: \.offset) { i, answer in
-                        if game!.currentQuestion.answers[answer] == true {
+                        if (game != nil) {
+                            if game.currentQuestion?.answers[answer] == true {
                             VStack {
                                 if animateViewIn {
                                     if tappedCorrectAnswer == false {
@@ -197,7 +198,7 @@ var body: some View {
                                             .transition(.asymmetric(insertion: .scale, removal:
                                                     .scale(scale: 0.5).combined(with:  .opacity.animation(.easeOut(duration: 0.5)))))
                                         
-//                                            .matchedGeometryEffect(id: "answer", in: namespace)
+                                        //                                            .matchedGeometryEffect(id: "answer", in: namespace)
                                             .transition(.scale)
                                             .onTapGesture {
                                                 withAnimation(.easeOut(duration: 1)) {
@@ -205,7 +206,7 @@ var body: some View {
                                                 }
                                                 
                                                 playCorrectSound()
-                                                 DispatchQueue.main
+                                                DispatchQueue.main
                                                     .asyncAfter(deadline: .now() + 3.5) {
                                                         game.correct()
                                                     }
@@ -213,10 +214,11 @@ var body: some View {
                                     }
                                 }
                             }
+                            
                             .animation(
                                 .easeOut(duration: animateViewIn ? 1 : 0)
                                 .delay(animateViewIn ? 1.5 : 0), value: animateViewIn)
-                        } else {
+                        }  } else {
                     // MARK: Wrong Answers
                             VStack {
                                 Text(answer)
@@ -290,7 +292,7 @@ var body: some View {
                     Spacer()
                     
                     if tappedCorrectAnswer {
-                        Text(game.currentQuestion)
+                        Text(game.currentQuestion!.question)
                             .minimumScaleFactor(0.5)
                             .multilineTextAlignment(.center)
                             .padding(10)
