@@ -156,9 +156,16 @@ struct ContentView: View {
                                 }
                                 .transition(.offset(x: geo.size.width / 4))
                                 .fullScreenCover(isPresented: $playGame) {
-                                    GamePlay().environmentObject(store)
-                                    //                                    Game().environmentObject(game)
-                                    //                                    Settings().environmentObject(store)
+                                    
+                                    // TODO: Review this block maybe fix
+                                
+//                                    GamePlay(game: .environmentObject(game))
+//                                    GamePlay(game: game<#Environment<Game>#>)
+//                                    Game().environmentObject(game)
+                                    
+                                    // TODO: Review this block maybe fix
+                                    
+                                    Settings().environmentObject(store)
                                         .onAppear {
                                             audioPlayer.setVolume(0, fadeDuration: 2)
                                         }
